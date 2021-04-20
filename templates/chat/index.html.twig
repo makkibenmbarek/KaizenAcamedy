@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<!-- Mirrored from themeselection.com/demo/chameleon-admin-template/html/ltr/vertical-menu-template/chat-application.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 18 Apr 2021 13:08:07 GMT -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Chameleon Admin is a modern Bootstrap 4 webapp &amp; admin dashboard html template with a large number of components, elegant design, clean and organized code.">
+    <meta name="keywords" content="admin template, Chameleon admin template, dashboard template, gradient admin template, responsive admin template, webapp, eCommerce dashboard, analytic dashboard">
+    <meta name="author" content="ThemeSelect">
+    <title>Chat</title>
+    <link rel="apple-touch-icon" href="{{ asset('ChatTemplate/app-assets/images/ico/apple-icon-120.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="https://themeselection.com/demo/chameleon-admin-template/app-assets/images/ico/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('ChatTemplate/app-assets/vendors/css/vendors.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('ChatTemplate/app-assets/vendors/css/forms/toggle/switchery.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('ChatTemplate/app-assets/css/plugins/forms/switch.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('ChatTemplate/app-assets/css/core/colors/palette-switch.min.css') }}">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('ChatTemplate/app-assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('ChatTemplate/app-assets/css/bootstrap-extended.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('ChatTemplate/app-assets/css/colors.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('ChatTemplate/app-assets/css/components.min.css') }}">
+    <!-- END: Theme CSS-->
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('ChatTemplate/app-assets/css/core/menu/menu-types/vertical-menu.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('ChatTemplate/app-assets/css/core/colors/palette-gradient.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('ChatTemplate/app-assets/fonts/simple-line-icons/style.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('ChatTemplate/app-assets/css/pages/chat-application.css') }}">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('ChatTemplate/') }}../../../assets/css/style.css">
+    <!-- END: Custom CSS-->
+
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+<body style="padding-top: 0rem; " class="vertical-layout vertical-menu content-left-sidebar chat-application  fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-gradient-x-purple-blue" data-col="content-left-sidebar">
+
+
+<!-- BEGIN: Content-->
+<div style="margin-left: 0px;" class="app-content content">
+    <div class="sidebar-left sidebar-fixed">
+        <div class="sidebar"><div class="sidebar-content card d-none d-lg-block">
+                <div class="card-body chat-fixed-search">
+                    <fieldset class="form-group position-relative has-icon-left m-0  w-75 display-inline">
+                        <label for="searchUser"></label><input type="text" class="form-control round" id="searchUser" placeholder="Search user">
+                        <div class="form-control-position">
+                            <i class="ft-search"></i>
+                        </div>
+                    </fieldset>
+                    <span class="float-right  primary font-large-1 cursor-pointer"> <i class="ft-edit"></i> </span>
+                </div>
+                <div id="users-list" class="list-group position-relative">
+                    <div style="padding-top: 109px;" class="users-list-padding media-list">
+                        {% for conversation in conversations %}
+                            <a onclick="getMessages({{ conversation.id }},{{ conversation.idUser }})" class="media border-bottom-blue-grey border-bottom-lighten-5 "> <!--border-right-primary  border-right-2-->
+                                <div class="media-left pr-1">
+                                <span class="avatar avatar-md">
+                                    <img class="media-object rounded-circle" src="{{ asset('ChatTemplate/app-assets/images/portrait/small/avatar-s-3.png') }}" alt="Generic placeholder image">
+                                </span>
+                                </div>
+                                <div class="media-body w-100">
+                                    <h6 class="list-group-item-heading font-medium-1 text-bold-700">{{ conversation.sujet }}&nbsp; <i class="ft-circle font-small-2 success"></i></h6>
+                                    <p class="font-small-3 text-muted text-bold-500">{{ conversation.date|date("m/d/Y")  }}</p>
+                                    <p class="list-group-item-text text-muted mb-0 lighten-1">{{ conversation.contenu|raw }} </p>
+                                </div>
+                            </a>
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="content-right">
+        <div class="content-wrapper">
+            <div class="content-wrapper-before"></div>
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <section class="chat-app-window">
+                    <div class="mb-1 secondary text-bold-700">Chat History</div>
+                    <div class="chats">
+                        <div id="chatContainer" class="chats">
+                            {#<p class="time">25 minutes ago</p>#}
+                        </div>
+                    </div>
+                </section>
+                <section class="chat-app-form">
+                    <form class="chat-app-input d-flex">
+                        <fieldset name="submit" class="col-10 m-0">
+                            <div class="input-group position-relative has-icon-left">
+                                <div class="form-control-position">
+                                    <span id="basic-addon3"><i class="ft-image"></i></span>
+                                </div>
+
+                                    <input id="msgValue" type="text" class="form-control" placeholder="Send message" aria-describedby="button-addon2">
+
+                            </div>
+                        </fieldset>
+                        <fieldset name="submit" class="form-group position-relative has-icon-left col-2 m-0">
+                            <button onclick="addMessage()" type="button" class="btn btn-danger">
+                                <i class="la la-paper-plane-o d-xl-none"></i>
+                                <span class="d-none d-lg-none d-xl-block">Send Message </span>
+                            </button>
+                        </fieldset>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+
+<p style="display: none;" id="ClickedReclamation"></p>
+<p style="display: none;" id="ClickedClient"></p>
+
+
+
+
+
+
+
+
+
+<!-- BEGIN: Vendor JS-->
+<script src="{{ asset('ChatTemplate/app-assets/vendors/js/vendors.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('ChatTemplate/app-assets/vendors/js/forms/toggle/switchery.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('ChatTemplate/app-assets/js/scripts/forms/switch.min.js') }}" type="text/javascript"></script>
+<!-- BEGIN Vendor JS-->
+
+<!-- BEGIN: Page Vendor JS-->
+<!-- END: Page Vendor JS-->
+
+<!-- BEGIN: Theme JS-->
+<script src="{{ asset('ChatTemplate/app-assets/js/core/app-menu.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('ChatTemplate/app-assets/js/core/app.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('ChatTemplate/app-assets/js/scripts/customizer.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('ChatTemplate/app-assets/vendors/js/jquery.sharrre.js') }}" type="text/javascript"></script>
+<!-- END: Theme JS-->
+
+<!-- BEGIN: Page JS-->
+<script src="{{ asset('ChatTemplate/app-assets/js/scripts/pages/chat-application.js') }}" type="text/javascript"></script>
+<!-- END: Page JS-->
+
+
+<script>
+    $(function() {
+        for (var i = 0; i < document.getElementsByName('submit').length; i++) {
+            document.getElementsByName('submit')[i].style.display="none";
+        }
+    })
+    function getMessages(idReclamation,idClient) {
+        document.getElementById('chatContainer').innerHTML='';
+        document.getElementById('ClickedReclamation').value=idReclamation;
+        document.getElementById('ClickedClient').value=idClient;
+        for (var i = 0; i < document.getElementsByName('submit').length; i++) {
+            document.getElementsByName('submit')[i].style.display="block";
+        }
+        $.ajax({
+            url: 'reclamation/getMessages/' + {{ adminId }} + '/' + idReclamation,
+            success: function (messages) {
+                for (var i = 0; i < messages.length; i++) {
+                    if (messages[i].idSend==={{ adminId }}){
+                        generateMessage(messages[i].message, 'connected')
+                    }else{
+                        generateMessage(messages[i].message, 'user');
+                    }
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log("Ajax request failed.");
+            }
+        });
+    }
+
+    function generateMessage(msg,type){
+        var str="";
+        if (type==="connected"){
+            str += '<div class="chat connected">';
+            str += '<div class="chat-body">';
+            str += '<div class="chat-content">';
+            str += '<p>'+msg+'</p>';
+            str += '</div>';
+            str += '</div>';
+            str += '</div>';
+        }else{
+            str += '<div class="chat chat-left friend">';
+            str += '<div class="chat-avatar">';
+            str += '<a class="avatar" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="">';
+            str += '<img src="{{ asset('ChatTemplate/app-assets/images/portrait/small/avatar-s-5.png') }}" class="box-shadow-4" alt="avatar" />';
+            str += '</a>';
+            str += '</div>';
+            str += '<div class="chat-body">';
+            str += '<div class="chat-content">';
+            str += '<p>'+msg+'</p>';
+            str += '</div>';
+            str += '</div>';
+            str += '</div>';
+        }
+        $("#chatContainer").append(str);
+
+
+    }
+
+    function addMessage(){
+        const msg = document.getElementById('msgValue').value;
+        const idReclamation = document.getElementById('ClickedReclamation').value;
+        const idClient = document.getElementById('ClickedClient').value;
+        if (msg===""){
+            console.log("empty msg")
+        }else{
+            $.ajax({
+                url: 'reclamation/AddMessageAdmin/' + idReclamation + '/' + idClient + '/' + msg,
+                success: function (data) {
+                    console.log(data);
+                    generateMessage(msg,'connected');
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log("Ajax request failed.");
+                }
+            });
+
+        }
+
+    }
+
+</script>
+
+
+
+</body>
+<!-- END: Body-->
+</html>
